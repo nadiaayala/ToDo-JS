@@ -1,8 +1,27 @@
 //Create the following modules: UI Controller, List Controller, Controller
+// var listController = (function () {
+//     var Item = function (description) {
+//         this.desc = description;
+//     };
+//     var data = [];
+
+//     return {
+//         addItem: function (description) {
+//             var newItem;
+//             newItem = new Item(description);
+//             data.push(newItem);
+//             console.log(data);
+//             return newItem;
+//         }
+//     }
+// })();
+
 var listController = (function () {
-    var Item = function (description) {
-        this.desc = description;
-    };
+    class Item {
+        constructor(desc){
+            this.description = desc;
+        }
+    }        
     var data = [];
 
     return {
