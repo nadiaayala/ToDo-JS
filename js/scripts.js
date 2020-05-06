@@ -1,36 +1,30 @@
-//Create the following modules: UI Controller, List Controller, Controller
-// var listController = (function () {
-//     var Item = function (description) {
-//         this.desc = description;
-//     };
-//     var data = [];
 
-//     return {
-//         addItem: function (description) {
-//             var newItem;
-//             newItem = new Item(description);
-//             data.push(newItem);
-//             console.log(data);
-//             return newItem;
-//         }
-//     }
-// })();
 
 var listController = (function () {
     class Item {
-        constructor(desc){
+        constructor(desc, idValue){
             this.description = desc;
+            this.id = idValue;
         }
     }        
     var data = [];
 
     return {
         addItem: function (description) {
-            var newItem;
-            newItem = new Item(description);
+            var newItem, id;
+            if (data.length > 0){
+                id = data[data.length - 1].id + 1;
+            }
+            else{
+                id = 0;
+            }
+            newItem = new Item(description, id);
             data.push(newItem);
             console.log(data);
             return newItem;
+        },
+        deleteItem: function(id){
+            // data.splice(d)
         }
     }
 })();
@@ -55,7 +49,7 @@ var UIController = (function() {
         },
         addListItem: function(input){
             var html, element;
-            html = "<div class='novaDiv'><li class='novoElTarefa'>" + input +"</li></div>";
+            html = "<div class='novaDiv'><li class='novoElTarefa'>" + input +"</li><button class='delete'> x </button></div>";
             element = document.querySelector(DOMStrings.divItems);
             element.insertAdjacentHTML('beforeend', html);            
         },
@@ -71,6 +65,13 @@ var controller = (function (listCtrl, UICtrl) {
     var setupEventListeners = function () {
         var DOMStrings = UICtrl.getDOMStrings();
         document.querySelector(DOMStrings.btnAdd).addEventListener('click', ctrlAddItem);
+        document.addEventListener('keypress', function (event) {
+            if (event.keyCode === 13 || event.which === 13) {
+                console.log(' Enter was pressed.');
+                ctrlAddItem();
+            }
+
+        });
     };
 
     var ctrlAddItem = function () {
