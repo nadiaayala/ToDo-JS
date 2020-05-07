@@ -20,7 +20,6 @@ var listController = (function () {
             }
             newItem = new Item(description, id);
             data.push(newItem);
-            console.log(data);
             return newItem;
         },
         deleteItem: function(id){
